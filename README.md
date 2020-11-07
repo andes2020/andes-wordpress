@@ -2,24 +2,38 @@
 Testing ansible with kubernetes and amazon eks!
 
 
-Kubeval
-
-`kubeval` is a tool for validating a Kubernetes YAML or JSON configuration file.
-It does so using schemas generated from the Kubernetes OpenAPI specification, and
-therefore can validate schemas for multiple versions of Kubernetes.
-
-[![CircleCI](https://circleci.com/gh/instrumenta/kubeval.svg?style=svg)](https://circleci.com/gh/instrumenta/kubeval)
-[![Go Report
-Card](https://goreportcard.com/badge/github.com/instrumenta/kubeval)](https://goreportcard.com/report/github.com/instrumenta/kubeval)
-[![GoDoc](https://godoc.org/github.com/instrumenta/kubeval?status.svg)](https://godoc.org/github.com/instrumenta/kubeval)
+eks-example
+Referenced from book https://www.ansibleforkubernetes.com/
 
 
-```
-$ kubeval my-invalid-rc.yaml
-WARN - fixtures/my-invalid-rc.yaml contains an invalid ReplicationController - spec.replicas: Invalid type. Expected: [integer,null], given: string
-$ echo $?
-1
-```
+1. pip install requirements.txt
+2. install aws cli
+(https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html)
+3. configure cli (aws configure) --> use default profile
+    to specify a profile (aws configure --profile <name>)
+4. inventory set virtualenv ansible_python_interpreter path
+e.g. 
+
+[localhost]
+127.0.0.1 ansible_connection=local ansible_python_interpreter=/Users/andes/.virtualenvs/ansible/bin/python
 
 
-For full usage and installation instructions see [kubeval.instrumenta.dev](https://kubeval.instrumenta.dev/).
+5. Linting yml using aws cloudformation validate-template file://<yml file>
+
+6. Install aws-iam-authenticator to let kubectl to connect eks cluster
+https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html
+
+or use built in aws get token to configure $KUBECONFIG
+https://awscli.amazonaws.com/v2/documentation/api/latest/reference/eks/get-token.html
+
+https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html
+
+aws eks --region <region-code> update-kubeconfig --name <cluster_name> --kubeconfig ~/.kube/eks-example
+(this create a optional kubeconfig in specified path)
+
+7. export KUBECONFIG=~/.kube/eks-example
+
+8. ansible-playbook -i inventory main.yml
+
+
+Yet to try github actions to create Continous delivery !!!! (Update with daily cron job....)
