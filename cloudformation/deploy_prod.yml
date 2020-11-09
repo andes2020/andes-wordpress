@@ -4,7 +4,7 @@
 
   vars_files:
     - vars/prod/main.yml
-  
+
   tasks:
     - name: Ensure VPC exists via cloud formation
       cloudformation:
@@ -27,7 +27,7 @@
     - name: Add to stack_outputs
       set_fact:
         stack_outputs: "{{ stack_outputs | combine(vpc_info['stack_outputs']) }}"
-    
+
     - name: Ensure EKS cluster exist via cloudformation
       cloudformation:
         stack_name: "{{ eks_stack_name }}-cluster"
@@ -45,14 +45,14 @@
           stack: "{{ eks_stack_name }}-cluster"
           application: "{{ eks_stack_name }}"
       register: eks_cluster_info
-  
+
     - debug:
         var: eks_cluster_info
 
     - name: Add to stack_outputs
       set_fact:
         stack_outputs: "{{ stack_outputs | combine(eks_cluster_info['stack_outputs']) }}"
-    
+
     - name: Esure EKS node group exist via cloudformation
       cloudformation:
         stack_name: "{{ eks_stack_name }}-nodegroup"
@@ -71,6 +71,6 @@
           stack: "{{ eks_stack_name }}-nodegroup"
           application: "{{ eks_stack_name }}"
       register: eks_nodegroup_info
-    
+
     - debug:
         var: eks_nodegroup_info

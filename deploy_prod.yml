@@ -13,13 +13,13 @@
         state: "{{ deploy_k8s_state }}"
       loop: "{{ lookup('template', 'tasks/mysql-pass.yml') | from_yaml_all | list }}"
       no_log: false
-  
+
     - name: Deploy MySQL and wordpress
       k8s:
         definition: "{{ item }}"
         kubeconfig: "{{ k8s_kubeconfig }}"
         state: "{{ deploy_k8s_state }}"
-      loop: 
+      loop:
         - "{{ lookup('template', 'tasks/mysql.yml') | from_yaml_all | list }}"
         - "{{ lookup('template', 'tasks/wordpress.yml') | from_yaml_all | list }}"
 
@@ -79,11 +79,11 @@
       when:
         - deploy_k8s_state == "present"
         - aws_environment | bool
-    
+
     - name: Test SSL connection
       uri:
         url: "https://{{ wordpress_route53_domain }}"
       register: ssl_status
-      when: 
+      when:
         - deploy_k8s_state == "present"
         - aws_environment | bool
