@@ -10,7 +10,7 @@ aws_profile: default
 stack_outputs: {}
 
 # EKS cluster settings
-eks_cluster_name: eks-andes-test
+eks_cluster_name: eks-example
 # https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html
 eks_kubernetes_version: "1.17"
 
