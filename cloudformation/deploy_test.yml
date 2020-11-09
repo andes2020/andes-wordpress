@@ -17,7 +17,7 @@
         template_parameters:
           Region: "{{ aws_region }}"
         tags:
-          stack: "{{ eks_stack_name }}"-vpc
+          stack: "{{ eks_stack_name }}-vpc"
           application: "{{ eks_stack_name }}"
       register: vpc_info
 
@@ -30,7 +30,7 @@
     
     - name: Ensure EKS cluster exist via cloudformation
       cloudformation:
-        stack_name: "{{ eks_stack_name }}"-cluster
+        stack_name: "{{ eks_stack_name }}-cluster"
         state: "{{ eks_state }}"
         region: "{{ aws_region }}"
         profile: "{{ aws_profile }}"
@@ -42,7 +42,7 @@
           Subnets: "{{ stack_outputs.Subnets }}"
           VpcId: "{{ stack_outputs.VpcId }}"
         tags:
-          stack: "{{ eks_stack_name }}"-cluster
+          stack: "{{ eks_stack_name }}-cluster"
           application: "{{ eks_stack_name }}"
       register: eks_cluster_info
   
@@ -55,7 +55,7 @@
     
     - name: Esure EKS node group exist via cloudformation
       cloudformation:
-        stack_name: "{{ eks_stack_name }}"-nodegroup
+        stack_name: "{{ eks_stack_name }}-nodegroup"
         state: "{{ eks_state }}"
         region: "{{ aws_region }}"
         profile: "{{ aws_profile }}"
@@ -68,7 +68,7 @@
           ClusterName: "{{ eks_cluster_name }}"
           Subnets: "{{ stack_outputs.Subnets }}"
         tags:
-          stack: "{{ eks_stack_name }}"-nodegroup
+          stack: "{{ eks_stack_name }}-nodegroup"
           application: "{{ eks_stack_name }}"
       register: eks_nodegroup_info
     

@@ -12,3 +12,6 @@ wordpress_route53_domain: 'test-wordpress.andeslam.me'
 aws_environment: true
 aws_region: eu-west-2
 aws_profile: default
+
+# SSL certficate settings
+aws_ssl_cert_arn: "arn:aws:acm:eu-west-2:439031175864:certificate/2df1df91-4c5d-4b72-82b9-2a693ab8b845"

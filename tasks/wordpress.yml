@@ -1,10 +1,31 @@
+# ---
+# # Expose port 80 for wordpress
+# # apiVersion: v1
+# # kind: Service
+# # metadata:
+# #   name: wordpress
+# #   namespace: default
+# #   labels:
+# #     app: wordpress
+# # spec:
+# #   ports:
+# #     - port: 80
+# #   selector:
+# #     app: wordpress
+# #     tier: frontend
+# #   type: LoadBalancer
+
 ---
-# Expose port 80 for wordpress
+# Expose port 443 and ingress using port 80 for wordpress
 apiVersion: v1
 kind: Service
 metadata:
   name: wordpress
   namespace: default
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "{{ aws_ssl_cert_arn }}"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: http
+    # external-dns.alpha.kubernetes.io/hostname: 
   labels:
     app: wordpress
 spec:

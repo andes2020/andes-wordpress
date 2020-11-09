@@ -37,3 +37,18 @@ aws eks --region <region-code> update-kubeconfig --name <cluster_name> --kubecon
 
 
 Yet to try github actions to create Continous delivery !!!! (Update with daily cron job....)
+
+9. Issue a SSL certificate
+https://eu-west-2.console.aws.amazon.com/acm/
+
+aws acm request-certificate --domain-name www.example.com --validation-method DNS
+
+Idempotency call
+aws acm request-certificate --domain-name www.example.com --validation-method DNS --idempotency-token 91adc45q
+
+OR using aws cli 
+
+
+10. Apply certficate to wordpress.yml
+aws_ssl_cert_arn: "arn:aws:acm:eu-central-1:some-account-id:certificate/some-cert-id"
+https://kubernetes-on-aws.readthedocs.io/en/latest/user-guide/tls-termination.html
