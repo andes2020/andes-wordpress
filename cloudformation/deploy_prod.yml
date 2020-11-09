@@ -3,22 +3,22 @@
   gather_facts: false
 
   vars_files:
-    - vars/prod/main.yml
+    - vars/test/main.yml
   
   tasks:
     - name: Ensure VPC exists via cloud formation
       cloudformation:
-        stack_name: eks-exmaple-vpc
+        stack_name: "{{ eks_stack_name }}-vpc"
         state: "{{ eks_state }}"
         region: "{{ aws_region }}"
         profile: "{{ aws_profile }}"
         disable_rollback: false
-        template: cloudformation/vpc.yml
+        template: template/vpc.yml
         template_parameters:
           Region: "{{ aws_region }}"
         tags:
-          stack: eks-example-vpc
-          application: eks-example
+          stack: "{{ eks_stack_name }}-vpc"
+          application: "{{ eks_stack_name }}"
       register: vpc_info
 
     - debug:
@@ -30,20 +30,20 @@
     
     - name: Ensure EKS cluster exist via cloudformation
       cloudformation:
-        stack_name: eks-example-cluster
+        stack_name: "{{ eks_stack_name }}-cluster"
         state: "{{ eks_state }}"
         region: "{{ aws_region }}"
         profile: "{{ aws_profile }}"
         disable_rollback: false
-        template: cloudformation/eks-cluster.yml
+        template: template/eks-cluster.yml
         template_parameters:
           ClusterName: "{{ eks_cluster_name }}"
           KubernetesVersion: "{{ eks_kubernetes_version }}"
           Subnets: "{{ stack_outputs.Subnets }}"
           VpcId: "{{ stack_outputs.VpcId }}"
         tags:
-          stack: eks-example-cluster
-          application: eks-example
+          stack: "{{ eks_stack_name }}-cluster"
+          application: "{{ eks_stack_name }}"
       register: eks_cluster_info
   
     - debug:
@@ -55,12 +55,12 @@
     
     - name: Esure EKS node group exist via cloudformation
       cloudformation:
-        stack_name: eks-example-nodegroup
+        stack_name: "{{ eks_stack_name }}-nodegroup"
         state: "{{ eks_state }}"
         region: "{{ aws_region }}"
         profile: "{{ aws_profile }}"
         disable_rollback: false
-        template: cloudformation/eks-nodegroup.yml
+        template: template/eks-nodegroup.yml
         template_parameters:
           NodeGroupName: "{{ eks_nodegroup_name }}"
           NodeInstanceType: "{{ eks_nodegroup_instance_type }}"
@@ -68,8 +68,8 @@
           ClusterName: "{{ eks_cluster_name }}"
           Subnets: "{{ stack_outputs.Subnets }}"
         tags:
-          stack: eks-example-nodegroup
-          application: eks-example
+          stack: "{{ eks_stack_name }}-nodegroup"
+          application: "{{ eks_stack_name }}"
       register: eks_nodegroup_info
     
     - debug:

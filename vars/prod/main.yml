@@ -2,7 +2,7 @@
 wordpress_mysql_password: q5U&4t&JP*j@U^4T
 
 # Kubeconfig file
-k8s_kubeconfig: "~/.kube/eks-example"
+k8s_kubeconfig: "~/.kube/eks-andes"
 
 # wordpress_route53 andes
 wordpress_route53_zone: 'andeslam.me'
@@ -12,3 +12,9 @@ wordpress_route53_domain: 'wordpress.andeslam.me'
 aws_environment: true
 aws_region: eu-west-2
 aws_profile: default
+
+# SSL certficate settings
+aws_ssl_cert_arn: "arn:aws:acm:eu-west-2:439031175864:certificate/5f06b932-e36f-4897-ab69-9cf3f11f40f3"
+
+# Create/Destroy k8s resource
+deploy_k8s_state: present

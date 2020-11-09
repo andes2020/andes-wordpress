@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  gather_facts: false
+
+  vars_files:
+    - vars/prod/main.yml
+
+  tasks:
+    - name: Delete CloudFormation stacks.
+      cloudformation:
+        stack_name: "{{ item }}"
+        state: absent
+        region: "{{ aws_region }}"
+        profile: "{{ aws_profile }}"
+      with_items:
+        - "{{ eks_stack_name }}-nodegroup"
+        - "{{ eks_stack_name }}-cluster"
+        - "{{ eks_stack_name }}-vpc"

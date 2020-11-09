@@ -8,7 +8,7 @@
   tasks:
     - name: Ensure VPC exists via cloud formation
       cloudformation:
-        stack_name: "{{ eks_stack_name }}"
+        stack_name: "{{ eks_stack_name }}-vpc"
         state: "{{ eks_state }}"
         region: "{{ aws_region }}"
         profile: "{{ aws_profile }}"
