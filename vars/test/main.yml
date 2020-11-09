@@ -1,0 +1,14 @@
+# Wordpress settings
+wordpress_mysql_password: q5U&4t&JP*j@U^4T
+
+# Kubeconfig file
+k8s_kubeconfig: "~/.kube/eks-example"
+
+# wordpress_route53 andes
+wordpress_route53_zone: 'andeslam.me'
+wordpress_route53_domain: 'test-wordpress.andeslam.me'
+
+# AWS settings
+aws_environment: true
+aws_region: eu-west-2
+aws_profile: default
