@@ -2,7 +2,7 @@
 wordpress_mysql_password: q5U&4t&JP*j@U^4T
 
 # Kubeconfig file
-k8s_kubeconfig: "~/.kube/eks-example"
+k8s_kubeconfig: "~/.kube/eks-andes"
 
 # wordpress_route53 andes
 wordpress_route53_zone: 'andeslam.me'
