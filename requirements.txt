@@ -1,3 +1,4 @@
 openshift
 boto
 boto3
+ansible-lint
