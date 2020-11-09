@@ -40,7 +40,8 @@
 
     - name: wait for load balancer to respond
       uri:
-        url: "http://{{ wordpress_lb_host }}"
+        url: "https://{{ wordpress_lb_host }}"
+        validate_certs: false
       register: lb_result
       until: lb_result.status == 200
       retries: 60
@@ -69,3 +70,16 @@
         value: '{{ wordpress_lb_host }}'
         alias: true
         alias_hosted_zone_id: "{{ elb_info['elbs'][0]['canonical_hosted_zone_name_id'] }}"
+      register: result
+      failed_when: '"Record already exists" not in result.msg'
+    
+    - debug:
+        var: result
+
+    - name: Test SSL connection
+      uri:
+        url: "https://{{ wordpress_route53_domain }}"
+      register: ssl_status
+
+    - debug:
+        var: ssl_status

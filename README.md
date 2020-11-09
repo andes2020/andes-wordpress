@@ -52,3 +52,19 @@ OR using aws cli
 10. Apply certficate to wordpress.yml
 aws_ssl_cert_arn: "arn:aws:acm:eu-central-1:some-account-id:certificate/some-cert-id"
 https://kubernetes-on-aws.readthedocs.io/en/latest/user-guide/tls-termination.html
+
+
+## Run playbooks
+1. Create a new EKS cluster, VPC, worker nodes    
+```bash
+$ ansible-playbook -i cloudformation/inventory cloudformation/deploy_test.yml
+```
+2. Export kubeconfig
+```bash
+$ aws eks --region eu-west-2 update-kubeconfig --name eks-andes --kubeconfig ~/.kube/eks-andes
+$ export KUBECONFIG=~/.kube/eks-andes
+```
+3. Deploy ELB, wordpress, mysql services, pods
+```bash
+$ ansible-playbook -i inventory deploy_test.yml
+```
