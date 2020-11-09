@@ -3,7 +3,7 @@
   gather_facts: false
 
   vars_files:
-    - vars/prod/main.yml
+    - vars//main.yml
 
   tasks:
     - name: Delete CloudFormation stacks.
