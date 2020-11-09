@@ -6,7 +6,7 @@ k8s_kubeconfig: "~/.kube/eks-andes"
 
 # wordpress_route53 andes
 wordpress_route53_zone: 'andeslam.me'
-wordpress_route53_domain: 'wordpress.andeslam.me'
+wordpress_route53_domain: 'wp.andeslam.me'
 
 # AWS settings
 aws_environment: true
