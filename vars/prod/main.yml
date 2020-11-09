@@ -6,7 +6,7 @@ k8s_kubeconfig: "~/.kube/eks-andes"
 
 # wordpress_route53 andes
 wordpress_route53_zone: 'andeslam.me'
-wordpress_route53_domain: 'wp.andeslam.me'
+wordpress_route53_domain: 'www.andeslam.me'
 
 # AWS settings
 aws_environment: true
@@ -14,7 +14,7 @@ aws_region: eu-west-2
 aws_profile: default
 
 # SSL certficate settings
-aws_ssl_cert_arn: "arn:aws:acm:eu-west-2:439031175864:certificate/5f06b932-e36f-4897-ab69-9cf3f11f40f3"
+aws_ssl_cert_arn: "arn:aws:acm:eu-west-2:439031175864:certificate/a8fab1fb-8720-4887-88ba-99390e7ed270"
 
 # Create/Destroy k8s resource
 deploy_k8s_state: present

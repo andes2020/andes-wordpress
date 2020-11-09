@@ -68,3 +68,15 @@ $ export KUBECONFIG=~/.kube/eks-andes
 ```bash
 $ ansible-playbook -i inventory deploy_test.yml
 ```
+
+## Delete resources
+
+1. Delete kubernetes services
+```bash
+$ ansible-playbook -i inventory delete.yml
+```
+
+2. Delete aws resources (eks, storage, and vpc)
+```bash
+$ ansible-playbook -i cloudformation/inventory cloudformation/delete.yml
+```
